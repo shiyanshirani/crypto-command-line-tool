@@ -4,12 +4,18 @@ import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-# Current timte
+# Argparse description
+parser = argparse.ArgumentParser(description="Enter Ticker To Receive Prices")
+parser.add_argument('ticker', type=str)
+args = parser.parse_args()
+ticker = args.ticker.lower()
+
+# Current time
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
 
 # URL for coindesk
-url = 'https://www.coindesk.com/price/bitcoin'
+url = 'https://www.coindesk.com/price/{}'.format(ticker)
 r = requests.get(url)
 
 # Beautified content
@@ -22,5 +28,5 @@ mktCap = soup.find('div', {'class': 'price-medium'})
 
 # Results to be displayed
 print(current_time)
-print('$BTC = {}, [24 Hour % Change] = {}, [MarketCap] = {}'.format(
-    price.text, mediumChange.text, mktCap.text))
+print('${} = {}, [24 Hour % Change] = {}, [MarketCap] = {}'.format(ticker.upper(),
+                                                                   price.text, mediumChange.text, mktCap.text))
