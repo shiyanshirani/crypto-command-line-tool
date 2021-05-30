@@ -1,2 +1,3 @@
-# crypto_cli
+# Cryptocurrency Price CLI
+
 A command line interface to fetch realtime cryptocurrency prices.
